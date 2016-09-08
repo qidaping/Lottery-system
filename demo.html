@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		* {
+			padding: 0px;
+			margin: 0px;
+		}
+		#title{
+			font-size: 25px;
+			width: 200px;
+			height:50px;
+			margin: 10px auto;
+			text-align: center;
+			font-weight: bold;
+			color: #F00;
+		}
+		.btn{
+			width: 190px;
+			height: 30px;
+			margin: 0 auto;
+		}
+		.btn span{
+			display: block;
+			cursor: pointer;
+			width: 80px;
+			height: 27px;
+			line-height: 27px;
+			float: left;
+			background-color: #036;
+			border:1px solid #eee;
+			border-radius: 6px;
+			margin-right: 10px;
+			color: #FFF;
+			font-size: 14px;
+			text-align: center;
+		}
+		
+
+	</style>
+</head>
+<body>
+	<div id="title" class="title">开始抽奖了！</div>
+	<div class="btn"><span id="play">开始</span><span id="stop">停止</span></div>
+	<script type="text/javascript">
+		var data = ["iphone6s 64G","macbook","ipad pro"];
+		var Timer = null;
+		var random = null;
+		var flag = false;
+		
+		function playFun(){
+			clearInterval(Timer);
+			Timer=setInterval(function(){
+				random = Math.floor(Math.random()*data.length);
+				title.innerHTML = data[random];
+			},50);
+			play.style.background='#999';
+			flag = true;
+		}
+		function stopFun(){
+			if(flag){
+				clearInterval(Timer);
+				play.style.background='#036';
+				setTimeout(function(){
+					alert('恭喜你中了一台'+data[random]+'! 请领取');
+				},500);
+				flag=false;
+			}
+		}
+		window.onload=function(){
+			var play=document.getElementById('play'),
+		        stop=document.getElementById('stop'),
+				title=document.getElementById('title');
+		    // 开始抽奖
+		    play.onclick=playFun;
+		    stop.onclick=stopFun;
+		}
+		document.onkeyup=function(event){
+			event = event||window.event;
+			if(event.keyCode==13){
+				if(flag==false){
+					playFun();
+					flag=true;
+				}else{
+					stopFun();
+					falg=false;
+				}
+			}
+		}
+	</script>
+</body>
+</html>
